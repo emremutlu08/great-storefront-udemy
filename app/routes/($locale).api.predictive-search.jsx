@@ -262,7 +262,11 @@ const PREDICTIVE_SEARCH_QUERY = `#graphql
           currencyCode
         }
       }
-    }
+    }    
+    giftProduct: metafield(namespace: "custom", key: "giftproduct" ){
+            value
+          }
+        
   }
   fragment PredictiveQuery on SearchQuerySuggestion {
     __typename

@@ -151,6 +151,11 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
         }
       }
     }
+    
+    giftProduct: metafield(namespace: "custom", key: "giftproduct" ){
+            value
+          }
+        
   }
 `;
 

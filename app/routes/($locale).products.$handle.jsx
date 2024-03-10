@@ -339,6 +339,11 @@ const PRODUCT_VARIANT_FRAGMENT = `#graphql
     product {
       title
       handle
+      
+      giftProduct: metafield(namespace: "custom", key: "giftproduct" ){
+            value
+          }
+        
     }
     selectedOptions {
       name
@@ -377,6 +382,11 @@ const PRODUCT_FRAGMENT = `#graphql
       description
       title
     }
+    
+    giftProduct: metafield(namespace: "custom", key: "giftproduct" ){
+            value
+          }
+        
   }
   ${PRODUCT_VARIANT_FRAGMENT}
 `;
@@ -402,6 +412,11 @@ const PRODUCT_VARIANTS_FRAGMENT = `#graphql
         ...ProductVariant
       }
     }
+    
+    giftProduct: metafield(namespace: "custom", key: "giftproduct" ){
+            value
+          }
+        
   }
   ${PRODUCT_VARIANT_FRAGMENT}
 `;

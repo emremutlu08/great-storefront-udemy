@@ -100,6 +100,11 @@ const SEARCH_QUERY = `#graphql
         product {
           handle
           title
+          
+          giftProduct: metafield(namespace: "custom", key: "giftproduct" ){
+            value
+          }
+        
         }
       }
     }
@@ -140,6 +145,11 @@ const SEARCH_QUERY = `#graphql
       nodes {
         ...on Product {
           ...SearchProduct
+          
+          giftProduct: metafield(namespace: "custom", key: "giftproduct" ){
+            value
+          }
+        
         }
       }
       pageInfo {

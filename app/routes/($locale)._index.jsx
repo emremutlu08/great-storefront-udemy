@@ -26,6 +26,8 @@ export async function loader({context}) {
 export default function Homepage() {
   /** @type {LoaderReturnData} */
   const data = useLoaderData();
+
+  console.log(data.recommendedProducts, 'data.recommendedProducts');
   return (
     <div className="home">
       <FeaturedCollection collection={data.featuredCollection} />
@@ -124,6 +126,9 @@ const RECOMMENDED_PRODUCTS_QUERY = `#graphql
         width
         height
       }
+    }
+    giftProduct: metafield(namespace: "custom", key: "giftproduct" ){
+      value
     }
   }
   query RecommendedProducts ($country: CountryCode, $language: LanguageCode)
