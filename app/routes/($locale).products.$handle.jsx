@@ -220,6 +220,26 @@ function ProductPrice({selectedVariant}) {
  * }}
  */
 function ProductForm({product, selectedVariant, variants}) {
+  console.log(selectedVariant, 'selectedVariant');
+
+  const giftProduct = selectedVariant?.product?.giftProduct?.value;
+
+  const linesArray = [
+    {
+      merchandiseId: selectedVariant.id,
+      quantity: 1,
+    },
+  ];
+
+  if (giftProduct) {
+    linesArray.push({
+      merchandiseId: giftProduct,
+      quantity: 1,
+    });
+  }
+
+  const lines = selectedVariant ? linesArray : [];
+
   return (
     <div className="product-form">
       <VariantSelector
@@ -235,16 +255,7 @@ function ProductForm({product, selectedVariant, variants}) {
         onClick={() => {
           window.location.href = window.location.href + '#cart-aside';
         }}
-        lines={
-          selectedVariant
-            ? [
-                {
-                  merchandiseId: selectedVariant.id,
-                  quantity: 1,
-                },
-              ]
-            : []
-        }
+        lines={lines}
       >
         {selectedVariant?.availableForSale ? 'Add to cart' : 'Sold out'}
       </AddToCartButton>
