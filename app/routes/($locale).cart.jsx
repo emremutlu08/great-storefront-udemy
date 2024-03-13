@@ -32,7 +32,33 @@ export async function action({request, context}) {
   let status = 200;
   let result;
 
-  console.log(JSON.stringify(inputs.lines, null, 2), 'inputs.lines');
+  console.log(JSON.stringify(inputs, null, 2), 'inputs');
+  const currentCart = await cart.get();
+
+  console.log(JSON.stringify(currentCart, null, 2), 'currentCart');
+
+  const currentItem = currentCart?.lines?.nodes?.find(
+    (el) => el?.id === inputs?.lines?.[0]?.id,
+  );
+
+  console.log(JSON.stringify(currentItem, null, 2), 'currentItem');
+
+  const giftProduct = currentItem?.merchandise?.product?.giftProduct?.value;
+
+  console.log(giftProduct, 'giftProduct');
+
+  if (giftProduct) {
+    if (inputs?.lines?.length > 0) {
+      console.log('update gift');
+
+      // increase / decrease inputs lines at zero's quantity
+      const updatedQuantity =
+        Number(inputs?.['decrease-quantity']) - 1 ||
+        Number(inputs?.['increase-quantity']) + 1;
+
+      inputs.lines[0].quantity = updatedQuantity;
+    }
+  }
 
   switch (action) {
     case CartForm.ACTIONS.LinesAdd:
