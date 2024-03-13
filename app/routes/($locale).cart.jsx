@@ -44,11 +44,29 @@ export async function action({request, context}) {
     if (inputs?.lines?.length > 0) {
       console.log('update gift');
 
+      console.log(inputs, 'inputs');
+      console.log(
+        Number(inputs?.['decrease-quantity']),
+        "Number(inputs?.['decrease-quantity'])",
+      );
       // increase / decrease inputs lines at zero's quantity
-      const updatedQuantity =
+
+      // TODO UPDATE YOUR CODE
+      // * FROM HERE
+      let updatedQuantity =
         Number(inputs?.['decrease-quantity']) - 1 ||
         Number(inputs?.['increase-quantity']) + 1;
 
+      if (
+        inputs?.['decrease-quantity'] &&
+        Number(inputs?.['decrease-quantity']) - 1 === 0
+      ) {
+        updatedQuantity = 0;
+      }
+      // * TO HERE
+
+      console.log(updatedQuantity, 'updatedQuantity');
+      console.log(JSON.stringify(inputs.lines, null, 2), ' inputs.lines');
       inputs.lines[0].quantity = updatedQuantity;
     }
 
