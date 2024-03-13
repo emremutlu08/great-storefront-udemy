@@ -32,20 +32,13 @@ export async function action({request, context}) {
   let status = 200;
   let result;
 
-  console.log(JSON.stringify(inputs, null, 2), 'inputs');
   const currentCart = await cart.get();
 
-  console.log(JSON.stringify(currentCart, null, 2), 'currentCart');
-
   const currentItem = currentCart?.lines?.nodes?.find(
-    (el) => el?.id === inputs?.lines?.[0]?.id,
+    (el) => el?.id === (inputs?.lines?.[0]?.id || inputs?.lineIds?.[0]),
   );
 
-  console.log(JSON.stringify(currentItem, null, 2), 'currentItem');
-
   const giftProduct = currentItem?.merchandise?.product?.giftProduct?.value;
-
-  console.log(giftProduct, 'giftProduct');
 
   if (giftProduct) {
     if (inputs?.lines?.length > 0) {
@@ -57,6 +50,24 @@ export async function action({request, context}) {
         Number(inputs?.['increase-quantity']) + 1;
 
       inputs.lines[0].quantity = updatedQuantity;
+    }
+
+    console.log(JSON.stringify(inputs.lineIds, null, 2), 'inputs.lineIds');
+    if (inputs?.lineIds?.length > 0) {
+      console.log('remove gift');
+
+      const removeThose = currentCart?.lines?.nodes?.filter(
+        (el) => el?.merchandise?.product?.giftProduct?.value === giftProduct,
+      );
+
+      const removeThoseIds = removeThose.map((el) => el.id);
+
+      inputs.lineIds = removeThoseIds;
+
+      console.log(
+        JSON.stringify(inputs.lineIds, null, 2),
+        'inputs.lineIds - THE FINAL!!!',
+      );
     }
   }
 
