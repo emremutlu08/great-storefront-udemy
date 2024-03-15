@@ -183,6 +183,19 @@ function CartLineQuantity({line}) {
   const prevQuantity = Number(Math.max(0, quantity - 1).toFixed(0));
   const nextQuantity = Number((quantity + 1).toFixed(0));
 
+  console.log(JSON.stringify(line, null, 2), 'line');
+  const isFree = Number(line?.cost?.totalAmount?.amount) === 0;
+
+  console.log(isFree, 'isFree');
+
+  if (isFree) {
+    return (
+      <div className="cart-line-quantiy">
+        <small>Quantity: {quantity} &nbsp;&nbsp;</small>
+      </div>
+    );
+  }
+
   return (
     <div className="cart-line-quantiy">
       <small>Quantity: {quantity} &nbsp;&nbsp;</small>
