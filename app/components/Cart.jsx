@@ -244,6 +244,16 @@ function CartLinePrice({line, priceType = 'regular', ...passthroughProps}) {
     return null;
   }
 
+  const isFree = Number(line?.cost?.totalAmount?.amount) === 0;
+
+  if (isFree) {
+    return (
+      <div>
+        <span>Free!</span>
+      </div>
+    );
+  }
+
   return (
     <div>
       <Money withoutTrailingZeros {...passthroughProps} data={moneyV2} />
