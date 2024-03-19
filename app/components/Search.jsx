@@ -120,7 +120,6 @@ export function SearchResults({results}) {
  * @param {Pick<SearchQuery, 'products'>}
  */
 function SearchResultsProductsGrid({products}) {
-  console.log(products, 'products');
   return (
     <div className="search-result">
       <h2>Products</h2>

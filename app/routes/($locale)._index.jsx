@@ -27,7 +27,6 @@ export default function Homepage() {
   /** @type {LoaderReturnData} */
   const data = useLoaderData();
 
-  console.log(data.recommendedProducts, 'data.recommendedProducts');
   return (
     <div className="home">
       <FeaturedCollection collection={data.featuredCollection} />

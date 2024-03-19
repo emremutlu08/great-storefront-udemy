@@ -62,8 +62,6 @@ export default {
         cartQueryFragment: CART_QUERY_FRAGMENT,
       });
 
-      console.log(cart.getCartId(), 'cartID');
-
       /**
        * Create a Remix request handler and pass
        * Hydrogen's Storefront client to the loader context.

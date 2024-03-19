@@ -220,8 +220,6 @@ function ProductPrice({selectedVariant}) {
  * }}
  */
 function ProductForm({product, selectedVariant, variants}) {
-  console.log(selectedVariant, 'selectedVariant');
-
   const giftProduct = selectedVariant?.product?.giftProduct?.value;
 
   const linesArray = [

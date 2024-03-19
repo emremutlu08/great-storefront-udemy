@@ -70,8 +70,6 @@ function CartLineItem({layout, line}) {
   const {product, title, image, selectedOptions} = merchandise;
   const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
 
-  console.log(line, 'line-item');
-
   const discountAllocations = line?.discountAllocations;
 
   return (
@@ -200,10 +198,7 @@ function CartLineQuantity({line}) {
   const prevQuantity = Number(Math.max(0, quantity - 1).toFixed(0));
   const nextQuantity = Number((quantity + 1).toFixed(0));
 
-  console.log(JSON.stringify(line, null, 2), 'line');
   const isFree = Number(line?.cost?.totalAmount?.amount) === 0;
-
-  console.log(isFree, 'isFree');
 
   if (isFree) {
     return (

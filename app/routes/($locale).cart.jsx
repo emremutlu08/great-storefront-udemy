@@ -33,7 +33,6 @@ export async function action({request, context}) {
   let result;
 
   const currentCart = await cart.get();
-  console.log(JSON.stringify(currentCart, null, 2), 'currentCart');
 
   const currentItem = currentCart?.lines?.nodes?.find(
     (el) => el?.id === (inputs?.lines?.[0]?.id || inputs?.lineIds?.[0]),
@@ -43,13 +42,6 @@ export async function action({request, context}) {
 
   if (giftProduct) {
     if (inputs?.lines?.length > 0) {
-      console.log('update gift');
-
-      console.log(inputs, 'inputs');
-      console.log(
-        Number(inputs?.['decrease-quantity']),
-        "Number(inputs?.['decrease-quantity'])",
-      );
       // increase / decrease inputs lines at zero's quantity
 
       // TODO UPDATE YOUR CODE
@@ -66,15 +58,10 @@ export async function action({request, context}) {
       }
       // * TO HERE
 
-      console.log(updatedQuantity, 'updatedQuantity');
-      console.log(JSON.stringify(inputs.lines, null, 2), ' inputs.lines');
       inputs.lines[0].quantity = updatedQuantity;
     }
 
-    console.log(JSON.stringify(inputs.lineIds, null, 2), 'inputs.lineIds');
     if (inputs?.lineIds?.length > 0) {
-      console.log('remove gift');
-
       const removeThose = currentCart?.lines?.nodes?.filter(
         (el) => el?.merchandise?.product?.giftProduct?.value === giftProduct,
       );
@@ -82,11 +69,6 @@ export async function action({request, context}) {
       const removeThoseIds = removeThose.map((el) => el.id);
 
       inputs.lineIds = removeThoseIds;
-
-      console.log(
-        JSON.stringify(inputs.lineIds, null, 2),
-        'inputs.lineIds - THE FINAL!!!',
-      );
     }
   }
 
