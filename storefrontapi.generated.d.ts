@@ -1764,6 +1764,11 @@ export type CartLineFragment = Pick<
   StorefrontAPI.CartLine,
   'id' | 'quantity'
 > & {
+  discountAllocations: Array<
+    Pick<StorefrontAPI.CartAutomaticDiscountAllocation, 'title'> & {
+      discountedAmount: Pick<StorefrontAPI.MoneyV2, 'currencyCode' | 'amount'>;
+    }
+  >;
   attributes: Array<Pick<StorefrontAPI.Attribute, 'key' | 'value'>>;
   cost: {
     totalAmount: Pick<StorefrontAPI.MoneyV2, 'currencyCode' | 'amount'>;
@@ -1810,6 +1815,14 @@ export type CartApiQueryFragment = Pick<
   lines: {
     nodes: Array<
       Pick<StorefrontAPI.CartLine, 'id' | 'quantity'> & {
+        discountAllocations: Array<
+          Pick<StorefrontAPI.CartAutomaticDiscountAllocation, 'title'> & {
+            discountedAmount: Pick<
+              StorefrontAPI.MoneyV2,
+              'currencyCode' | 'amount'
+            >;
+          }
+        >;
         attributes: Array<Pick<StorefrontAPI.Attribute, 'key' | 'value'>>;
         cost: {
           totalAmount: Pick<StorefrontAPI.MoneyV2, 'currencyCode' | 'amount'>;

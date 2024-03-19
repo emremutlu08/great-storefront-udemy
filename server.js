@@ -183,108 +183,117 @@ export class HydrogenSession {
 
 // NOTE: https://shopify.dev/docs/api/storefront/latest/queries/cart
 const CART_QUERY_FRAGMENT = `#graphql
-  fragment Money on MoneyV2 {
-    currencyCode
-    amount
-  }
-  fragment CartLine on CartLine {
-    id
-    quantity
-    attributes {
-      key
-      value
-    }
-    cost {
-      totalAmount {
-        ...Money
-      }
-      amountPerQuantity {
-        ...Money
-      }
-      compareAtAmountPerQuantity {
-        ...Money
-      }
-    }
-    merchandise {
-      ... on ProductVariant {
-        id
-        availableForSale
-        compareAtPrice {
-          ...Money
-        }
-        price {
-          ...Money
-        }
-        requiresShipping
-        title
-        image {
-          id
-          url
-          altText
-          width
-          height
+ fragment Money on MoneyV2 {
+  currencyCode
+  amount
+}
 
-        }
-        product {
-          handle
-          title
-          id
-          giftProduct: metafield(namespace: "custom", key: "giftproduct" ){
-            value
-          }
-        }
-        selectedOptions {
-          name
+fragment CartLine on CartLine {
+  id
+  quantity
+  discountAllocations {
+    ... on CartAutomaticDiscountAllocation {
+      title
+      discountedAmount {
+        ...Money
+      }
+    }
+  }
+  attributes {
+    key
+    value
+  }
+  cost {
+    totalAmount {
+      ...Money
+    }
+    amountPerQuantity {
+      ...Money
+    }
+    compareAtAmountPerQuantity {
+      ...Money
+    }
+  }
+  merchandise {
+    ... on ProductVariant {
+      id
+      availableForSale
+      compareAtPrice {
+        ...Money
+      }
+      price {
+        ...Money
+      }
+      requiresShipping
+      title
+      image {
+        id
+        url
+        altText
+        width
+        height
+      }
+      product {
+        handle
+        title
+        id
+        giftProduct: metafield(namespace: "custom", key: "giftproduct") {
           value
         }
       }
+      selectedOptions {
+        name
+        value
+      }
     }
   }
-  fragment CartApiQuery on Cart {
-    id
-    checkoutUrl
-    totalQuantity
-    buyerIdentity {
-      countryCode
-      customer {
-        id
-        email
-        firstName
-        lastName
-        displayName
-      }
+}
+
+fragment CartApiQuery on Cart {
+  id
+  checkoutUrl
+  totalQuantity
+  buyerIdentity {
+    countryCode
+    customer {
+      id
       email
-      phone
+      firstName
+      lastName
+      displayName
     }
-    lines(first: $numCartLines) {
-      nodes {
-        ...CartLine
-      }
-    }
-    cost {
-      subtotalAmount {
-        ...Money
-      }
-      totalAmount {
-        ...Money
-      }
-      totalDutyAmount {
-        ...Money
-      }
-      totalTaxAmount {
-        ...Money
-      }
-    }
-    note
-    attributes {
-      key
-      value
-    }
-    discountCodes {
-      code
-      applicable
+    email
+    phone
+  }
+  lines(first: $numCartLines) {
+    nodes {
+      ...CartLine
     }
   }
+  cost {
+    subtotalAmount {
+      ...Money
+    }
+    totalAmount {
+      ...Money
+    }
+    totalDutyAmount {
+      ...Money
+    }
+    totalTaxAmount {
+      ...Money
+    }
+  }
+  note
+  attributes {
+    key
+    value
+  }
+  discountCodes {
+    code
+    applicable
+  }
+}
 `;
 
 /** @typedef {import('@shopify/remix-oxygen').SessionStorage} SessionStorage */

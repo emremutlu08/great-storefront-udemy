@@ -33,6 +33,7 @@ export async function action({request, context}) {
   let result;
 
   const currentCart = await cart.get();
+  console.log(JSON.stringify(currentCart, null, 2), 'currentCart');
 
   const currentItem = currentCart?.lines?.nodes?.find(
     (el) => el?.id === (inputs?.lines?.[0]?.id || inputs?.lineIds?.[0]),
