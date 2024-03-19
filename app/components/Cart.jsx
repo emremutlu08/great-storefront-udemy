@@ -70,6 +70,10 @@ function CartLineItem({layout, line}) {
   const {product, title, image, selectedOptions} = merchandise;
   const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
 
+  console.log(line, 'line-item');
+
+  const discountAllocations = line?.discountAllocations;
+
   return (
     <li key={id} className="cart-line">
       {image && (
@@ -100,13 +104,26 @@ function CartLineItem({layout, line}) {
         </Link>
         <CartLinePrice line={line} as="span" />
         <ul>
-          {selectedOptions.map((option) => (
-            <li key={option.name}>
-              <small>
-                {option.name}: {option.value}
-              </small>
-            </li>
-          ))}
+          {discountAllocations.map((discount) => {
+            if (Number(line?.cost?.totalAmount?.amount) !== 0) {
+              return null;
+            }
+
+            return (
+              <li key={discount.title}>
+                <small>
+                  {discount.title} <br />
+                  <b
+                    style={{
+                      display: 'flex',
+                    }}
+                  >
+                    - <Money data={line?.cost?.amountPerQuantity} />
+                  </b>
+                </small>
+              </li>
+            );
+          })}
         </ul>
         <CartLineQuantity line={line} />
       </div>
