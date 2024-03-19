@@ -37,13 +37,31 @@ export function SearchForm({searchTerm}) {
   }, []);
 
   return (
-    <Form method="get">
+    <Form
+      method="get"
+      style={{
+        display: 'flex',
+        gap: 10,
+      }}
+    >
       <input
         defaultValue={searchTerm}
         name="q"
         placeholder="Search…"
         ref={inputRef}
         type="search"
+      />
+      <input
+        defaultValue={0}
+        name="min"
+        placeholder="Min price"
+        type="number"
+      />
+      <input
+        defaultValue={9999}
+        name="max"
+        placeholder="Max price"
+        type="number"
       />
       &nbsp;
       <button type="submit">Search</button>
