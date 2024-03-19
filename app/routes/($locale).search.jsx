@@ -76,6 +76,16 @@ const SEARCH_QUERY = `#graphql
     title
     trackingParameters
     vendor
+    priceRange {
+      minVariantPrice {
+        amount
+        currencyCode
+      }
+      maxVariantPrice {
+        amount
+        currencyCode
+      }
+    }
     variants(first: 1) {
       nodes {
         id

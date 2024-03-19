@@ -102,6 +102,7 @@ export function SearchResults({results}) {
  * @param {Pick<SearchQuery, 'products'>}
  */
 function SearchResultsProductsGrid({products}) {
+  console.log(products, 'products');
   return (
     <div className="search-result">
       <h2>Products</h2>
@@ -109,8 +110,23 @@ function SearchResultsProductsGrid({products}) {
         {({nodes, isLoading, NextLink, PreviousLink}) => {
           const itemsMarkup = nodes.map((product) => (
             <div className="search-results-item" key={product.id}>
-              <Link prefetch="intent" to={`/products/${product.handle}`}>
+              <Link
+                prefetch="intent"
+                to={`/products/${product.handle}`}
+                style={{
+                  display: 'flex',
+                  gap: 10,
+                }}
+              >
                 <span>{product.title}</span>
+                <div
+                  style={{
+                    display: 'flex',
+                  }}
+                >
+                  <Money data={product?.priceRange?.minVariantPrice} /> -{' '}
+                  <Money data={product?.priceRange?.maxVariantPrice} />
+                </div>
               </Link>
             </div>
           ));
