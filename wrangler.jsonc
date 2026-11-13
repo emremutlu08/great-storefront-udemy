@@ -1,0 +1,12 @@
+{
+  // Hydrogen (Remix classic compiler) served as a Cloudflare Worker with static assets.
+  // Build: npm ci --ignore-scripts && npx shopify hydrogen build (Node 18), then npx wrangler deploy.
+  // Secrets (set once): PUBLIC_STOREFRONT_API_TOKEN, SESSION_SECRET.
+  "name": "great-storefront-udemy",
+  "main": "dist/worker/index.js",
+  "compatibility_date": "2026-11-01",
+  "no_bundle": true,
+  "assets": { "directory": "dist/client" },
+  "vars": { "PUBLIC_STORE_DOMAIN": "hydrogen-storefront-udemy.myshopify.com" },
+  "routes": [{ "pattern": "storefront-udemy.emremutlu.tr", "custom_domain": true }]
+}
